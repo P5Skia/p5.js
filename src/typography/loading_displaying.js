@@ -88,6 +88,7 @@ p5.prototype.loadFont = function(path, onSuccess, onError) {
   p5._validateParameters('loadFont', arguments);
   const p5Font = new p5.Font(this);
 
+  /*
   const self = this;
   opentype.load(path, (err, font) => {
     if (err) {
@@ -100,7 +101,24 @@ p5.prototype.loadFont = function(path, onSuccess, onError) {
     }
 
     p5Font.font = font;
+    */
 
+  // P5-Skia: load typeface as skTypeface
+  fetch(path)
+    .then(response => response.arrayBuffer())
+    .then(results => {
+      const fontMgr = CanvasKit.FontMgr.RefDefault();
+      p5Font.arrayBuffer = results; // for paragraph
+      p5Font.skTypeface = fontMgr.MakeTypefaceFromData(results);
+
+      if (typeof onSuccess !== 'undefined') {
+        onSuccess(p5Font);
+      }
+
+      self._decrementPreload();
+    });
+
+  /*
     if (typeof onSuccess !== 'undefined') {
       onSuccess(p5Font);
     }
@@ -133,7 +151,7 @@ p5.prototype.loadFont = function(path, onSuccess, onError) {
       document.head.appendChild(newStyle);
     }
   });
-
+  */
   return p5Font;
 };
 

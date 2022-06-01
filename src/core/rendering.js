@@ -54,11 +54,15 @@ const defaultClass = 'p5Canvas';
  */
 p5.prototype.createCanvas = function(w, h, renderer) {
   p5._validateParameters('createCanvas', arguments);
-  //optional: renderer, otherwise defaults to p2d
-  const r = renderer || constants.P2D;
+  //optional: renderer, otherwise defaults to skia
+  const r = renderer || constants.SKIA;
   let c;
 
-  if (r === constants.WEBGL) {
+  if (
+    r === constants.WEBGL ||
+    r === constants.SKIA ||
+    r === constants.SKIA_SW
+  ) {
     c = document.getElementById(defaultId);
     if (c) {
       //if defaultCanvas already exists
@@ -108,6 +112,14 @@ p5.prototype.createCanvas = function(w, h, renderer) {
   //webgl mode
   if (r === constants.WEBGL) {
     this._setProperty('_renderer', new p5.RendererGL(c, this, true));
+    this._elements.push(this._renderer);
+  } else if (r === constants.SKIA) {
+    // P5-Skia: Set Skia Renderer (hw render)
+    this._setProperty('_renderer', new p5.RendererSkia(c, this, true));
+    this._elements.push(this._renderer);
+  } else if (r === constants.SKIA_SW) {
+    // P5-Skia: Set Skia Renderer (sw render)
+    this._setProperty('_renderer', new p5.RendererSkia(c, this, true, true));
     this._elements.push(this._renderer);
   } else {
     //P2D mode
@@ -321,6 +333,11 @@ p5.prototype.blendMode = function(mode) {
     mode = constants.BLEND;
   }
   this._renderer.blendMode(mode);
+};
+
+// p5skia
+p5.prototype.clip = function(x, y, w, h) {
+  this._renderer.clip(x, y, w, h);
 };
 
 /**

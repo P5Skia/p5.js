@@ -149,6 +149,7 @@ p5.Image = function(width, height) {
   this.gifProperties = null;
   //For WebGL Texturing only: used to determine whether to reupload texture to GPU
   this._modified = false;
+  this.skImg = null; // P5-Skia
   /**
    * Array containing the values for all the pixels in the display window.
    * These values are numbers. This array is the size (include an appropriate
@@ -341,6 +342,26 @@ p5.Image.prototype.loadPixels = function() {
 p5.Image.prototype.updatePixels = function(x, y, w, h) {
   p5.Renderer2D.prototype.updatePixels.call(this, x, y, w, h);
   this.setModified(true);
+  // P5-Skia: I re-create skImage when finish pixel update
+  // Should it be synchronized?
+  const imgData = this.drawingContext.getImageData(
+    0,
+    0,
+    this.width,
+    this.height
+  );
+
+  this.skImg = CanvasKit.MakeImage(
+    {
+      width: this.width,
+      height: this.height,
+      alphaType: CanvasKit.AlphaType.Unpremul,
+      colorType: CanvasKit.ColorType.RGBA_8888,
+      colorSpace: CanvasKit.ColorSpace.SRGB
+    },
+    imgData.data,
+    4 * this.width
+  );
 };
 
 /**
@@ -392,7 +413,13 @@ p5.Image.prototype.updatePixels = function(x, y, w, h) {
  */
 p5.Image.prototype.get = function(x, y, w, h) {
   p5._validateParameters('p5.Image.get', arguments);
-  return p5.Renderer2D.prototype.get.apply(this, arguments);
+  let img = p5.Renderer2D.prototype.get.apply(this, arguments);
+  // P5Skia
+  if (img.loadPixels) {
+    img.loadPixels();
+    img.updatePixels(0, 0, img.width, img.height); // This will update skImage
+  }
+  return img;
 };
 
 p5.Image.prototype._getPixel = p5.Renderer2D.prototype._getPixel;
@@ -636,6 +663,11 @@ p5.Image.prototype.copy = function(...args) {
 p5.Image.prototype.mask = function(p5Image) {
   if (p5Image === undefined) {
     p5Image = this;
+  }
+  // P5-Skia: add skImgMask for masking when draw
+  if (this.skImg && p5Image.skImg) {
+    this.skImgMask = p5Image.skImg;
+    return;
   }
   const currBlend = this.drawingContext.globalCompositeOperation;
 

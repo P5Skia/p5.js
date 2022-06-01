@@ -123,6 +123,7 @@ function setup() {
   let surface0 = CanvasKit.MakeSurface(300, 300);
   const canvas0 = surface0.getCanvas();
   drawFrame(canvas0);
+  // Save snapshot 
   const img0 = surface0.makeImageSnapshot();
   const pngBytes0 = img0.encodeToBytes();
   const b64encoded = toBase64String(pngBytes0);

@@ -14,6 +14,7 @@ import './core/p5.Element';
 import './core/p5.Graphics';
 import './core/p5.Renderer';
 import './core/p5.Renderer2D';
+import './core/p5.RendererSkia';
 import './core/rendering';
 import './core/shim';
 import './core/structure';
@@ -80,6 +81,30 @@ import './utilities/array_functions';
 import './utilities/conversion';
 import './utilities/string_functions';
 import './utilities/time_date';
+
+// path (P5Skia)
+import './path/path';
+import './path/p5.Path';
+
+// svg (P5Skia)
+import './svg/SVG';
+import './svg/p5.SVG';
+
+// textblob (P5Skia)
+import './textblob/textblob';
+import './textblob/p5.TextBlob';
+
+// skottie (P5Skia)
+import './skottie/skottie';
+import './skottie/p5.Skottie';
+
+// paragraph (P5Skia)
+import './paragraph/paragraph';
+import './paragraph/p5.Paragraph';
+
+// shader (P5Skia)
+import './shader/shader';
+import './shader/p5.Shader';
 
 // webgl
 import './webgl/3d_primitives';

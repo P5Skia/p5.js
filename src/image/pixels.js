@@ -289,6 +289,20 @@ p5.prototype._copyHelper = (
       dw,
       dh
     );
+  } else if (dstImage._renderer && dstImage._renderer.isSKIA) {
+    // P5-Skia:
+    p5.RendererSkia.prototype.image.call(
+      dstImage._renderer,
+      srcImage,
+      sx + sxMod,
+      sy + syMod,
+      sw,
+      sh,
+      dx * dstImage._renderer._pInst._pixelDensity,
+      dy * dstImage._renderer._pInst._pixelDensity,
+      dw * dstImage._renderer._pInst._pixelDensity,
+      dh * dstImage._renderer._pInst._pixelDensity
+    );
   } else {
     dstImage.drawingContext.drawImage(
       srcImage.canvas,
@@ -472,9 +486,9 @@ p5.prototype._copyHelper = (
 p5.prototype.filter = function(operation, value) {
   p5._validateParameters('filter', arguments);
   if (this.canvas !== undefined) {
-    Filters.apply(this.canvas, Filters[operation], value);
+    Filters.apply(this.canvas, Filters[operation], value, this); // P5-Skia add this as context
   } else {
-    Filters.apply(this.elt, Filters[operation], value);
+    Filters.apply(this.elt, Filters[operation], value, this); // P5-Skia add this as context
   }
 };
 

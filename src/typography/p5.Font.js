@@ -28,6 +28,18 @@ p5.Font = function(p) {
   this.font = undefined;
 };
 
+p5.Font.prototype.getMetrics = function(fontSize) {
+  // P5-Skia
+  let font;
+  if (!this.skTypeface) {
+    font = new CanvasKit.Font(null, fontSize);
+  } else {
+    font = new CanvasKit.Font(this.skTypeface, fontSize);
+  }
+  const metrics = font.getMetrics();
+  return metrics;
+};
+
 /**
  * Returns a tight bounding box for the given text string using this
  * font
@@ -72,6 +84,49 @@ p5.Font = function(p) {
  * </div>
  */
 p5.Font.prototype.textBounds = function(str, x = 0, y = 0, fontSize, opts) {
+  // P5-Skia
+  let font;
+  if (!this.skTypeface) {
+    font = new CanvasKit.Font(null, fontSize);
+  } else {
+    font = new CanvasKit.Font(this.skTypeface, fontSize);
+  }
+  const matrix = font.getMetrics();
+  //console.log(matrix);
+  const ascent = matrix.ascent;
+  const descent = matrix.descent;
+  const w = font.measureText(str);
+
+  const p = (opts && opts.renderer && opts.renderer._pInst) || this.parent;
+  //console.log(p);
+  const alignment = p._renderer._textAlign || constants.LEFT; // P5-Skia: Skia not set drawingContext
+  const baseline = p._renderer._textBaseline || constants.BASELINE;
+  //console.log(alignment, baseline);
+
+  let finalMinX = x;
+  if (alignment === constants.CENTER) {
+    finalMinX -= w / 2;
+  } else if (alignment === constants.RIGHT) {
+    finalMinX -= w;
+  }
+  let finalMinY = y;
+  if (baseline === constants.TOP) {
+    finalMinY -= ascent;
+  } else if (baseline === constants.BOTTOM) {
+    finalMinY -= descent;
+  } else if (baseline === constants.CENTER) {
+    finalMinY -= descent - (descent - ascent) / 2;
+  }
+  let result = {
+    x: finalMinX,
+    y: finalMinY + ascent,
+    h: descent - ascent,
+    w: w,
+    advance: finalMinX - x
+  };
+
+  return result;
+  /*  
   // Check cache for existing bounds. Take into consideration the text alignment
   // settings. Default alignment should match opentype's origin: left-aligned &
   // alphabetic baseline.
@@ -170,6 +225,7 @@ p5.Font.prototype.textBounds = function(str, x = 0, y = 0, fontSize, opts) {
   }
 
   return result;
+  */
 };
 
 /**

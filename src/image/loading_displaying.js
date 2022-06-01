@@ -110,6 +110,22 @@ p5.prototype.loadImage = function(path, successCallback, failureCallback) {
           }
         );
       } else {
+        // P5-Skia: load image as skImage
+        response.arrayBuffer().then(
+          arrayBuffer => {
+            if (arrayBuffer) {
+              pImg.skImg = CanvasKit.MakeImageFromEncoded(arrayBuffer);
+            }
+          },
+          e => {
+            if (typeof failureCallback === 'function') {
+              failureCallback(e);
+            } else {
+              console.error(e);
+            }
+          }
+        );
+
         // Non-GIF Section
         const img = new Image();
 

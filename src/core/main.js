@@ -378,7 +378,17 @@ class p5 {
         time_since_last >= target_time_between_frames - epsilon
       ) {
         //mandatory update values(matrixes and stack)
+        const context = this._isGlobal ? window : this;
+        const callMethod = f => {
+          f.call(context);
+        };
+        if (typeof context.draw !== 'function') {
+          context._registeredMethods.pre.forEach(callMethod); // P5-Skia: call predraw if draw out of loop
+        }
         this.redraw();
+        if (typeof context.draw !== 'function') {
+          context._registeredMethods.post.forEach(callMethod); // P5-Skia: call predraw if draw out of loop
+        }
         this._frameRate = 1000.0 / (now - this._lastFrameTime);
         this.deltaTime = now - this._lastFrameTime;
         this._setProperty('deltaTime', this.deltaTime);
@@ -569,11 +579,14 @@ class p5 {
       window.removeEventListener('blur', blurHandler);
     });
 
-    if (document.readyState === 'complete') {
-      this._start();
-    } else {
-      window.addEventListener('load', this._start.bind(this), false);
-    }
+    Promise.all([window.ckLoaded]).then(() => {
+      // P5-Skia: Instantiate mode, wait for CanvasKit before start    
+      if (document.readyState === 'complete') {
+        this._start();
+      } else {
+        window.addEventListener('load', this._start.bind(this), false);
+      }
+    });
   }
 
   _initializeInstanceVariables() {

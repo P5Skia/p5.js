@@ -419,6 +419,13 @@ p5.prototype.createImg = function() {
     self.height = elt.offsetHeight || elt.height;
     const last = args[args.length - 1];
     if (typeof last === 'function') last(self);
+
+    // P5-Skia
+    createImageBitmap(elt).then(imgbmp => {
+      const skimg = CanvasKit.MakeImageFromCanvasImageSource(imgbmp);
+      console.log(skimg);
+      self.skImg = skimg;
+    });
   });
   return self;
 };

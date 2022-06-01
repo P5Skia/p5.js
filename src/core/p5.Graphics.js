@@ -23,7 +23,7 @@ import * as constants from './constants';
  * @param {p5} [pInst]          pointer to p5 instance
  */
 p5.Graphics = function(w, h, renderer, pInst) {
-  const r = renderer || constants.P2D;
+  const r = renderer || constants.SKIA; // P5-Skia: use SKIA as default mode
 
   this.canvas = document.createElement('canvas');
   const node = pInst._userNode || document.body;
@@ -49,6 +49,8 @@ p5.Graphics = function(w, h, renderer, pInst) {
 
   if (r === constants.WEBGL) {
     this._renderer = new p5.RendererGL(this.canvas, this, false);
+  } else if (r === constants.SKIA || r === constants.SKIA_SW) {
+    this._renderer = new p5.RendererSkia(this.canvas, this, false); // P5-Skia: Create SKIA renderer
   } else {
     this._renderer = new p5.Renderer2D(this.canvas, this, false);
   }

@@ -154,31 +154,66 @@ Filters._createImageData = function(width, height) {
  */
 Filters.apply = function(canvas, func, filterParam) {
   const pixelsState = canvas.getContext('2d');
-  const imageData = pixelsState.getImageData(0, 0, canvas.width, canvas.height);
+  var imageData = null;
+  if (!pixelsState) {
+    imageData = context._renderer.getImageData();
+  } else {
+    imageData = pixelsState.getImageData(0, 0, canvas.width, canvas.height);
+  }
 
   //Filters can either return a new ImageData object, or just modify
   //the one they received.
   const newImageData = func(imageData, filterParam);
   if (newImageData instanceof ImageData) {
-    pixelsState.putImageData(
-      newImageData,
-      0,
-      0,
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
+    if (!pixelsState) {
+      // P5-Skia: create ImageData from skCanvas's pixels
+      const imgInfo = context._renderer._skSurface.imageInfo();
+      context._renderer._skCanvas.writePixels(
+        newImageData.data,
+        context._renderer.width * context._pixelDensity,
+        context._renderer.height * context._pixelDensity,
+        0,
+        0,
+        imgInfo.alphaType,
+        imgInfo.colorType,
+        imgInfo.colorSpace
+      );
+    } else {
+      pixelsState.putImageData(
+        newImageData,
+        0,
+        0,
+        0,
+        0,
+        canvas.width * context._pixelDensity,
+        canvas.height * context._pixelDensity
+      );
+    }
   } else {
-    pixelsState.putImageData(
-      imageData,
-      0,
-      0,
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
+    if (!pixelsState) {
+      // P5-Skia: create ImageData from skCanvas's pixels
+      const imgInfo = context._renderer._skSurface.imageInfo();
+      context._renderer._skCanvas.writePixels(
+        imageData.data,
+        context._renderer.width * context._pixelDensity,
+        context._renderer.height * context._pixelDensity,
+        0,
+        0,
+        imgInfo.alphaType,
+        imgInfo.colorType,
+        imgInfo.colorSpace
+      );
+    } else {
+      pixelsState.putImageData(
+        imageData,
+        0,
+        0,
+        0,
+        0,
+        canvas.width * context._pixelDensity,
+        canvas.height * context._pixelDensity
+      );
+    }
   }
 };
 

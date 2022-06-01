@@ -28,6 +28,14 @@ export const P2D = 'p2d';
  * @final
  */
 export const WEBGL = 'webgl';
+/**
+ * An extra render modes in p5.js: SKIA.
+ * High performance 2D renderer with path operations.
+ * @property {String} WEBGL
+ * @final
+ */
+export const SKIA = 'skia'; // P5-Skia: add SKIA (hw render) for render modes.
+export const SKIA_SW = 'skia_sw'; // P5-Skia: add SKIA (sw render) for render modes.
 
 // ENVIRONMENT
 /**
