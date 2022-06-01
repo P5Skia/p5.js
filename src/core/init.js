@@ -54,4 +54,20 @@ const waitForDocumentReady = () =>
 const waitingForTranslator =
   typeof IS_MINIFIED === 'undefined' ? initTranslator() : Promise.resolve();
 
-Promise.all([waitForDocumentReady(), waitingForTranslator]).then(_globalInit);
+// P5Skia: Initialize CanvasKit
+console.log('P5Skia version 0.71');
+console.log('CanvasKit loading...'); //, window.location);
+window.ckLoaded = CanvasKitInit({
+  locateFile: file => '/bin/' + file
+});
+
+window.ckLoaded.then(CK => {
+  window.CanvasKit = CK;
+  console.log('CanvasKit loaded successfully');
+});
+
+Promise.all([
+  window.ckLoaded,
+  waitForDocumentReady(),
+  waitingForTranslator
+]).then(_globalInit);
