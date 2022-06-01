@@ -580,6 +580,10 @@ p5.prototype.endContour = function() {
   return this;
 };
 
+p5.prototype.MakeCurvePath = function(mode, vertices) {
+  return this._renderer.MakeCurvePath( mode, vertices );
+}
+
 /**
  * The <a href="#/p5/endShape">endShape()</a> function is the companion to <a href="#/p5/beginShape">beginShape()</a> and may only be
  * called after <a href="#/p5/beginShape">beginShape()</a>. When <a href="#/p5/endshape">endShape()</a> is called, all of the image

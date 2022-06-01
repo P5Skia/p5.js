@@ -233,6 +233,7 @@ p5.Renderer.prototype.text = function(str, x, y, maxWidth, maxHeight) {
   let chars;
   let shiftedY;
   let finalMaxHeight = Number.MAX_VALUE;
+  let totalHeight;
 
   if (!(this._doFill || this._doStroke)) {
     return;
@@ -250,6 +251,29 @@ p5.Renderer.prototype.text = function(str, x, y, maxWidth, maxHeight) {
   lines = str.split('\n');
 
   if (typeof maxWidth !== 'undefined') {
+    // P5Skia
+    totalHeight = 0;
+    let currentLineLength = 1;
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+      line = '';
+      words = lines[lineIndex].split(' ');
+      for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
+        testLine = `${line + words[wordIndex]}` + ' ';
+        testWidth = this.textWidth(testLine);
+        if (testWidth > maxWidth && currentLineLength > 1) {
+          line = `${words[wordIndex]} `;
+          totalHeight += p.textLeading();
+          currentLineLength = 1;
+        } else {
+          line = testLine;
+          currentLineLength += 1;
+        }
+      }
+      if (lineIndex < lines.length - 1) {
+        totalHeight += p.textLeading();
+      }
+    }
+
     if (this._rectMode === constants.CENTER) {
       x -= maxWidth / 2;
     }

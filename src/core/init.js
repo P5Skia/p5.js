@@ -67,7 +67,7 @@ window.ckLoaded.then(CK => {
 });
 
 Promise.all([
-  window.ckLoaded,
+  window.ckLoaded, // P5-Skia: wait for CanvasKit loaded
   waitForDocumentReady(),
   waitingForTranslator
 ]).then(_globalInit);

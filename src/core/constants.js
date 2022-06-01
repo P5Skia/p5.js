@@ -28,10 +28,11 @@ export const P2D = 'p2d';
  * @final
  */
 export const WEBGL = 'webgl';
+
 /**
- * An extra render modes in p5.js: SKIA.
- * High performance 2D renderer with path operations.
- * @property {String} WEBGL
+ * A custom render modes in p5.js: SKIA
+ * Render by Skia's CanvasKit
+ * @property {String} SKIA
  * @final
  */
 export const SKIA = 'skia'; // P5-Skia: add SKIA (hw render) for render modes.
@@ -733,3 +734,9 @@ export const LABEL = 'label';
  * @final
  */
 export const FALLBACK = 'fallback';
+
+//export const DIFFERENCE = 'difference';
+export const INTERSECT = 'intersect';
+export const UNION = 'union';
+export const XOR = 'xor';
+export const REVERSE_DIFFERENCE = 'reverseDifference';

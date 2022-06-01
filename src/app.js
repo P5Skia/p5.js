@@ -14,7 +14,7 @@ import './core/p5.Element';
 import './core/p5.Graphics';
 import './core/p5.Renderer';
 import './core/p5.Renderer2D';
-import './core/p5.RendererSkia';
+import './core/p5.RendererSkia'; // P5-Skia: add RendererSkia
 import './core/rendering';
 import './core/shim';
 import './core/structure';
@@ -118,7 +118,7 @@ import './webgl/p5.Matrix';
 import './webgl/p5.RendererGL.Immediate';
 import './webgl/p5.RendererGL';
 import './webgl/p5.RendererGL.Retained';
-import './webgl/p5.Shader';
+//import './webgl/p5.Shader';
 import './webgl/p5.RenderBuffer';
 import './webgl/p5.Texture';
 import './webgl/text';

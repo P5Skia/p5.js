@@ -54,10 +54,11 @@ const defaultClass = 'p5Canvas';
  */
 p5.prototype.createCanvas = function(w, h, renderer) {
   p5._validateParameters('createCanvas', arguments);
-  //optional: renderer, otherwise defaults to skia
-  const r = renderer || constants.SKIA;
+  //optional: renderer, otherwise defaults to p2d
+  const r = renderer || constants.SKIA; // P5-Skia: use skia as default
   let c;
 
+  // P5-Skia: If SKIA renderer, create canvas element
   if (
     r === constants.WEBGL ||
     r === constants.SKIA ||

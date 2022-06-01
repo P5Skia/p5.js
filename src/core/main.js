@@ -389,6 +389,7 @@ class p5 {
         if (typeof context.draw !== 'function') {
           context._registeredMethods.post.forEach(callMethod); // P5-Skia: call predraw if draw out of loop
         }
+
         this._frameRate = 1000.0 / (now - this._lastFrameTime);
         this.deltaTime = now - this._lastFrameTime;
         this._setProperty('deltaTime', this.deltaTime);
@@ -580,7 +581,7 @@ class p5 {
     });
 
     Promise.all([window.ckLoaded]).then(() => {
-      // P5-Skia: Instantiate mode, wait for CanvasKit before start    
+      // P5-Skia: Instantiate mode, wait for CanvasKit before start
       if (document.readyState === 'complete') {
         this._start();
       } else {

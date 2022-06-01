@@ -152,7 +152,8 @@ Filters._createImageData = function(width, height) {
  * @param  {function(ImageData,Object)} func   [description]
  * @param  {Object} filterParam  [description]
  */
-Filters.apply = function(canvas, func, filterParam) {
+Filters.apply = function(canvas, func, filterParam, context) {
+  // P5-Skia: added context here
   const pixelsState = canvas.getContext('2d');
   var imageData = null;
   if (!pixelsState) {
@@ -335,9 +336,9 @@ Filters.posterize = function(canvas, level) {
     const glevel = pixels[i + 1];
     const blevel = pixels[i + 2];
 
-    pixels[i] = ((rlevel * level) >> 8) * 255 / levels1;
-    pixels[i + 1] = ((glevel * level) >> 8) * 255 / levels1;
-    pixels[i + 2] = ((blevel * level) >> 8) * 255 / levels1;
+    pixels[i] = (((rlevel * level) >> 8) * 255) / levels1;
+    pixels[i + 1] = (((glevel * level) >> 8) * 255) / levels1;
+    pixels[i + 2] = (((blevel * level) >> 8) * 255) / levels1;
   }
 };
 

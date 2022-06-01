@@ -1143,6 +1143,29 @@ p5.prototype.httpDo = function(...args) {
 
 window.URL = window.URL || window.webkitURL;
 
+function toBase64String(bytes) {
+  if (typeof Buffer !== 'undefined') {
+    // Are we on node?
+    return Buffer.from(bytes).toString('base64');
+  } else {
+    // From https://stackoverflow.com/a/25644409
+    // because the naive solution of
+    //     btoa(String.fromCharCode.apply(null, bytes));
+    // would occasionally throw "Maximum call stack size exceeded"
+    var CHUNK_SIZE = 0x8000; //arbitrary number
+    var index = 0;
+    var length = bytes.length;
+    var result = '';
+    var slice;
+    while (index < length) {
+      slice = bytes.slice(index, Math.min(index + CHUNK_SIZE, length));
+      result += String.fromCharCode.apply(null, slice);
+      index += CHUNK_SIZE;
+    }
+    return btoa(result);
+  }
+}
+
 // private array of p5.PrintWriter objects
 p5.prototype._pWriters = [];
 
@@ -1494,6 +1517,34 @@ p5.prototype.save = function(object, _filename, _options) {
     return;
   } else if (args[0] instanceof p5.Renderer || args[0] instanceof p5.Graphics) {
     // otherwise, parse the arguments
+    if (args[0] instanceof p5.Graphics) {
+      if (args[0]._renderer._skSurface) {
+        const image = args[0]._renderer._skSurface.makeImageSnapshot();
+        if (image) {
+          var codec = 'image/png';
+          var format = CanvasKit.ImageFormat.PNG;
+          if (_options === 'jpg' || _options === 'jpeg') {
+            codec = 'image/jpeg';
+            format = CanvasKit.ImageFormat.JPEG;
+            _options = 'jpg';
+          }
+          const quality = 0.92;
+          var imgBytes = image.encodeToBytes(format, quality);
+          if (imgBytes) {
+            let imageData =
+              'data:' + codec + ';base64,' + toBase64String(imgBytes);
+            var downloadMime = 'image/octet-stream';
+            imageData = imageData.replace(codec, downloadMime);
+            //console.log(imageData);
+            p5.prototype.downloadFile(imageData, _filename, _options);
+          } else {
+            console.log('encode failed');
+          }
+          image.delete();
+          return;
+        }
+      }
+    }
 
     // if first param is a p5Graphics, then saveCanvas
     p5.prototype.saveCanvas(args[0].elt, args[1], args[2]);
@@ -1526,6 +1577,45 @@ p5.prototype.save = function(object, _filename, _options) {
         }
     }
   }
+};
+
+p5.prototype.snapshot = function(object, _options) {
+  // parse the arguments and figure out which things we are saving
+  const args = arguments;
+
+  if (args[0] instanceof p5.Renderer || args[0] instanceof p5.Graphics) {
+    // otherwise, parse the arguments
+    if (args[0] instanceof p5.Graphics) {
+      if (args[0]._renderer._skSurface) {
+        const image = args[0]._renderer._skSurface.makeImageSnapshot();
+        if (image) {
+          var codec = 'image/png';
+          var format = CanvasKit.ImageFormat.PNG;
+          if (_options === 'jpg' || _options === 'jpeg') {
+            codec = 'image/jpeg';
+            format = CanvasKit.ImageFormat.JPEG;
+            _options = 'jpg';
+          }
+          const quality = 0.92;
+          var imgBytes = image.encodeToBytes(format, quality);
+          if (imgBytes) {
+            let imageData =
+              'data:' + codec + ';base64,' + toBase64String(imgBytes);
+            //var downloadMime = 'image/octet-stream';
+            //imageData = imageData.replace(codec, downloadMime);
+
+            image.delete();
+            return imageData;
+          } else {
+            console.log('encode failed');
+          }
+          image.delete();
+          return null;
+        }
+      }
+    }
+  }
+  return null;
 };
 
 /**

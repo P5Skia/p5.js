@@ -126,15 +126,16 @@ p5.Font.prototype.textBounds = function(str, x = 0, y = 0, fontSize, opts) {
   };
 
   return result;
-  /*  
+
+  /*
   // Check cache for existing bounds. Take into consideration the text alignment
   // settings. Default alignment should match opentype's origin: left-aligned &
   // alphabetic baseline.
   const p = (opts && opts.renderer && opts.renderer._pInst) || this.parent;
 
   const ctx = p._renderer.drawingContext;
-  const alignment = ctx.textAlign || constants.LEFT;
-  const baseline = ctx.textBaseline || constants.BASELINE;
+  const alignment = (ctx && ctx.textAlign) || constants.LEFT; // P5-Skia: Skia not set drawingContext
+  const baseline = (ctx && ctx.textBaseline) || constants.BASELINE;
   const cacheResults = false;
   let result;
   let key;
@@ -272,13 +273,13 @@ p5.Font.prototype.textBounds = function(str, x = 0, y = 0, fontSize, opts) {
  * function draw() {
  *   background(255);
  *   beginShape();
- *   translate(-bounds.x * width / bounds.w, -bounds.y * height / bounds.h);
+ *   translate((-bounds.x * width) / bounds.w, (-bounds.y * height) / bounds.h);
  *   for (let i = 0; i < points.length; i++) {
  *     let p = points[i];
  *     vertex(
- *       p.x * width / bounds.w +
- *         sin(20 * p.y / bounds.h + millis() / 1000) * width / 30,
- *       p.y * height / bounds.h
+ *       (p.x * width) / bounds.w +
+ *         (sin((20 * p.y) / bounds.h + millis() / 1000) * width) / 30,
+ *       (p.y * height) / bounds.h
  *     );
  *   }
  *   endShape(CLOSE);
@@ -512,7 +513,7 @@ p5.Font.prototype._textDescent = function(fontSize) {
 
 p5.Font.prototype._scale = function(fontSize) {
   return (
-    1 / this.font.unitsPerEm * (fontSize || this.parent._renderer._textSize)
+    (1 / this.font.unitsPerEm) * (fontSize || this.parent._renderer._textSize)
   );
 };
 
@@ -631,7 +632,7 @@ function parseOpts(options, defaults) {
 
 function at(v, i) {
   const s = v.length;
-  return v[i < 0 ? i % s + s : i % s];
+  return v[i < 0 ? (i % s) + s : i % s];
 }
 
 function collinear(a, b, c, thresholdAngle) {
@@ -681,7 +682,7 @@ function findDotsAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t) {
   const ay = t1 * p1y + t * c1y;
   const cx = t1 * c2x + t * p2x;
   const cy = t1 * c2y + t * p2y;
-  let alpha = 90 - Math.atan2(mx - nx, my - ny) * 180 / Math.PI;
+  let alpha = 90 - (Math.atan2(mx - nx, my - ny) * 180) / Math.PI;
 
   if (mx > nx || my < ny) {
     alpha += 180;
@@ -1037,12 +1038,12 @@ function a2c(x1, y1, rx, ry, angle, lac, sweep_flag, x2, y2, recursive) {
   // http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
   const PI = Math.PI;
 
-  const _120 = PI * 120 / 180;
+  const _120 = (PI * 120) / 180;
   let f1;
   let f2;
   let cx;
   let cy;
-  const rad = PI / 180 * (+angle || 0);
+  const rad = (PI / 180) * (+angle || 0);
   let res = [];
   let xy;
 
@@ -1061,7 +1062,7 @@ function a2c(x1, y1, rx, ry, angle, lac, sweep_flag, x2, y2, recursive) {
     y2 = xy.y;
     const x = (x1 - x2) / 2;
     const y = (y1 - y2) / 2;
-    let h = x * x / (rx * rx) + y * y / (ry * ry);
+    let h = (x * x) / (rx * rx) + (y * y) / (ry * ry);
     if (h > 1) {
       h = Math.sqrt(h);
       rx = h * rx;
@@ -1077,8 +1078,8 @@ function a2c(x1, y1, rx, ry, angle, lac, sweep_flag, x2, y2, recursive) {
         )
       );
 
-    cx = k * rx * y / ry + (x1 + x2) / 2;
-    cy = k * -ry * x / rx + (y1 + y2) / 2;
+    cx = (k * rx * y) / ry + (x1 + x2) / 2;
+    cy = (k * -ry * x) / rx + (y1 + y2) / 2;
     f1 = Math.asin(((y1 - cy) / ry).toFixed(9));
     f2 = Math.asin(((y2 - cy) / ry).toFixed(9));
 
@@ -1125,8 +1126,8 @@ function a2c(x1, y1, rx, ry, angle, lac, sweep_flag, x2, y2, recursive) {
     c2 = Math.cos(f2),
     s2 = Math.sin(f2),
     t = Math.tan(df / 4),
-    hx = 4 / 3 * rx * t,
-    hy = 4 / 3 * ry * t,
+    hx = (4 / 3) * rx * t,
+    hy = (4 / 3) * ry * t,
     m1 = [x1, y1],
     m2 = [x1 + hx * s1, y1 - hy * c1],
     m3 = [x2 + hx * s2, y2 - hy * c2],

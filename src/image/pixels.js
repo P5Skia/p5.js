@@ -61,7 +61,7 @@ import '../color/p5.Color';
  * let pink = color(255, 102, 204);
  * loadPixels();
  * let d = pixelDensity();
- * let halfImage = 4 * (width * d) * (height / 2 * d);
+ * let halfImage = 4 * (width * d) * ((height / 2) * d);
  * for (let i = 0; i < halfImage; i += 4) {
  *   pixels[i] = red(pink);
  *   pixels[i + 1] = green(pink);
@@ -595,7 +595,7 @@ p5.prototype.get = function(x, y, w, h) {
  * function setup() {
  *   image(img, 0, 0, width, height);
  *   let d = pixelDensity();
- *   let halfImage = 4 * (width * d) * (height * d / 2);
+ *   let halfImage = 4 * (width * d) * ((height * d) / 2);
  *   loadPixels();
  *   for (let i = 0; i < halfImage; i++) {
  *     pixels[i + halfImage] = pixels[i];
@@ -711,7 +711,7 @@ p5.prototype.set = function(x, y, imgOrCol) {
  * function setup() {
  *   image(img, 0, 0, width, height);
  *   let d = pixelDensity();
- *   let halfImage = 4 * (width * d) * (height * d / 2);
+ *   let halfImage = 4 * (width * d) * ((height * d) / 2);
  *   loadPixels();
  *   for (let i = 0; i < halfImage; i++) {
  *     pixels[i + halfImage] = pixels[i];

@@ -175,11 +175,13 @@ p5.prototype.loadShader = function(
  * @alt
  * zooming Mandelbrot set. a colorful, infinitely detailed fractal.
  */
+/*
 p5.prototype.createShader = function(vertSrc, fragSrc) {
   this._assert3d('createShader');
   p5._validateParameters('createShader', arguments);
   return new p5.Shader(this._renderer, vertSrc, fragSrc);
 };
+*/
 
 /**
  * Sets the <a href="#/p5.Shader">p5.Shader</a> object to
@@ -259,6 +261,7 @@ p5.prototype.createShader = function(vertSrc, fragSrc) {
  * @alt
  * canvas toggles between a circular gradient of orange and blue vertically. and a circular gradient of red and green moving horizontally when mouse is clicked/pressed.
  */
+/*
 p5.prototype.shader = function(s) {
   this._assert3d('shader');
   p5._validateParameters('shader', arguments);
@@ -278,6 +281,7 @@ p5.prototype.shader = function(s) {
 
   return this;
 };
+*/
 
 /**
  * Restores the default shaders. Code that runs after resetShader()

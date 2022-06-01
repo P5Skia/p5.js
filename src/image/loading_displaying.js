@@ -636,10 +636,10 @@ p5.prototype._getTintedImageCanvas = function(img) {
     const b = pixels[i + 2];
     const a = pixels[i + 3];
 
-    newPixels[i] = r * this._renderer._tint[0] / 255;
-    newPixels[i + 1] = g * this._renderer._tint[1] / 255;
-    newPixels[i + 2] = b * this._renderer._tint[2] / 255;
-    newPixels[i + 3] = a * this._renderer._tint[3] / 255;
+    newPixels[i] = (r * this._renderer._tint[0]) / 255;
+    newPixels[i + 1] = (g * this._renderer._tint[1]) / 255;
+    newPixels[i + 2] = (b * this._renderer._tint[2]) / 255;
+    newPixels[i + 3] = (a * this._renderer._tint[3]) / 255;
   }
 
   tmpCtx.putImageData(id, 0, 0);

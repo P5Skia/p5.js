@@ -62,7 +62,7 @@ import './p5.Renderer';
 */
 
 p5.RendererSkia = function(elt, pInst, isMainCanvas, _isSWRender = false) {
-  console.log('RendererSkia', elt);
+  //console.log('RendererSkia', elt);
   p5.Renderer.call(this, elt, pInst, isMainCanvas);
 
   this.isSKIA = true; //lets us know we're in SKIA mode
@@ -87,16 +87,17 @@ p5.RendererSkia.prototype.preDraw = function() {
     return;
   }
   //console.log('predraw');
-  if (this._doRetain && !this._inLoopCount) {
-    if (this._retainImage) {
-      this._skCanvas.drawImage(this._retainImage, 0, 0, null);
-    }
-  }
+
   if (!this._skCanvas) {
     this._skCanvas = this._skSurface.getCanvas();
   }
   this._skCanvas.restoreToCount(0);
   this._skCanvas.save();
+  if (this._doRetain && !this._inLoopCount) {
+    if (this._retainImage) {
+      this._skCanvas.drawImage(this._retainImage, 0, 0, null);
+    }
+  }
   if (this._isMainCanvas) {
     this._skScale = this._pInst._pixelDensity;
     this._skCanvas.scale(this._skScale, this._skScale);
