@@ -108,9 +108,10 @@ p5.prototype.loadFont = function(path, onSuccess, onError) {
   fetch(path)
     .then(response => response.arrayBuffer())
     .then(results => {
-      const fontMgr = CanvasKit.FontMgr.RefDefault();
+      //const fontMgr = CanvasKit.FontMgr.RefDefault();
+      //p5Font.skTypeface = fontMgr.MakeTypefaceFromData(results);
       p5Font.arrayBuffer = results; // for paragraph
-      p5Font.skTypeface = fontMgr.MakeTypefaceFromData(results);
+      p5Font.skTypeface = CanvasKit.Typeface.MakeFreeTypeFaceFromData(results);
 
       if (typeof onSuccess !== 'undefined') {
         onSuccess(p5Font);

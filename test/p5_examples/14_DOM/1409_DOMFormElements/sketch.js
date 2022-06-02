@@ -1,3 +1,4 @@
+
 /* global variables */
 //p5 DOM form elements
 let slider1;
@@ -9,9 +10,9 @@ let entry1;
 
 function setup() {
   createCanvas(200, 200);
-  background('beige');
+  background("beige");
 
-  checkbox1 = createCheckbox('Check me');
+  checkbox1 = createCheckbox("Check me");
 
   createP(); //spacer with <p> tag
 
@@ -29,7 +30,7 @@ function setup() {
   //createSlider(min, max, [value], [step])
   slider1 = createSlider(10, 200);
 
-  button1 = createButton('Press me'); //, "pressed");
+  button1 = createButton("Press me"); //, "pressed");
   //Assign callback fcn for button1
   //when user clicks mouse on it
   button1.mouseClicked(button1Clicked);
@@ -41,11 +42,11 @@ function setup() {
   //.option([value], [contentLabel])
   //If 1 param, it's both content AND
   //value. Values treated as strings.
-  radio1.option(1, 'cranberries');
-  radio1.option(2, 'almonds');
-  radio1.option(3, 'gouda');
+  radio1.option(1, "cranberries");
+  radio1.option(2, "almonds");
+  radio1.option(3, "gouda");
 
-  radio1.value('1'); //set init value
+  radio1.value("1"); //set init value
 
   createP(); //spacer with <p> tag
 
@@ -53,10 +54,10 @@ function setup() {
   //.option([contentValue],[value])
   //If 1 param, it's both content AND
   //value. Values treated as strings.
-  select1.option('Sans-serif');
-  select1.option('Serif');
-  select1.option('Fantasy');
-  //If changed, call select1Changed
+  select1.option("Sans-serif");
+  select1.option("Serif");
+  select1.option("Fantasy");
+  //If changed, call select1Changed 
   select1.changed(select1Changed);
 }
 
@@ -66,23 +67,24 @@ function draw() {
   fill(gray);
 
   //If mouse in corner, turn on checkbox1
-  if (mouseX < width / 3 && mouseY < height / 3) {
+  if ((mouseX < width / 3) &&
+    (mouseY < height / 3)) {
     checkbox1.checked(true);
   }
   //Is checkbox1 checked? Say so.
   if (checkbox1.checked()) {
-    text('CHECKED', 20, 40);
+    text("CHECKED", 20, 40);
   }
 
   switch (radio1.value()) {
     //radio value is always a string
-    case '1':
+    case "1":
       rect(0, 0, width, 50);
       break;
-    case '2':
+    case "2":
       rect(0, 70, width, 50);
       break;
-    case '3':
+    case "3":
       rect(0, 140, width, 50);
       break;
   }
@@ -94,17 +96,18 @@ function button1Clicked() {
   slider1.value(200);
 }
 
+
 //callback fcn for select1
 function select1Changed() {
   switch (select1.value()) {
-    case 'Sans-serif':
-      textFont('sans-serif');
+    case "Sans-serif":
+      textFont("sans-serif");
       break;
-    case 'Serif':
-      textFont('serif');
+    case "Serif":
+      textFont("serif");
       break;
-    case 'Fantasy':
-      textFont('fantasy');
+    case "Fantasy":
+      textFont("fantasy");
       break;
   }
 }
@@ -112,22 +115,24 @@ function select1Changed() {
 //callback function for entry1
 function entryCallback() {
   for (let i = 0; i < 25; i++) {
-    text(entry1.value(), random(width), random(height));
+    text(entry1.value(), random(width),
+          random(height));
   }
+
 }
 
 function mouseClicked() {
-  console.log('button1?', button1.value());
-  console.log('checkbox1?', checkbox1.value());
+  console.log("button1?", button1.value());
+  console.log("checkbox1?", checkbox1.value());
   //Update .value of either? No visible change
   //to a button or checkbox
-  checkbox1.value('Check again');
-  button1.value('clicked?');
+  checkbox1.value("Check again");
+  button1.value("clicked?");
 }
 
 function keyTyped() {
   switch (key) {
-    case 'r':
+    case "r":
       //move slider1 value to 100
       slider1.value(100);
       break;

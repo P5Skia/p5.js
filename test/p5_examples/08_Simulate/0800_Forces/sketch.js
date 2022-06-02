@@ -23,6 +23,7 @@ function draw() {
   liquid.display();
 
   for (let i = 0; i < movers.length; i++) {
+
     // Is the Mover in the liquid?
     if (liquid.contains(movers[i])) {
       // Calculate drag force
@@ -41,7 +42,9 @@ function draw() {
     movers[i].display();
     movers[i].checkEdges();
   }
+
 }
+
 
 function mousePressed() {
   reset();
@@ -65,12 +68,8 @@ let Liquid = function(x, y, w, h, c) {
 // Is the Mover in the Liquid?
 Liquid.prototype.contains = function(m) {
   let l = m.position;
-  return (
-    l.x > this.x &&
-    l.x < this.x + this.w &&
-    l.y > this.y &&
-    l.y < this.y + this.h
-  );
+  return l.x > this.x && l.x < this.x + this.w &&
+         l.y > this.y && l.y < this.y + this.h;
 };
 
 // Calculate drag force
@@ -122,15 +121,23 @@ Mover.prototype.update = function() {
 Mover.prototype.display = function() {
   stroke(0);
   strokeWeight(2);
-  fill(255, 127);
+  fill(255,127);
   ellipse(this.position.x, this.position.y, this.mass * 16, this.mass * 16);
 };
 
 // Bounce off bottom of window
 Mover.prototype.checkEdges = function() {
-  if (this.position.y > height - this.mass * 8) {
+  if (this.position.y > (height - this.mass * 8)) {
     // A little dampening when hitting the bottom
     this.velocity.y *= -0.9;
-    this.position.y = height - this.mass * 8;
+    this.position.y = (height - this.mass * 8);
   }
 };
+
+
+
+
+
+
+
+

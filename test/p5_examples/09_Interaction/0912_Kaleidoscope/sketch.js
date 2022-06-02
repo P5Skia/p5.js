@@ -1,11 +1,11 @@
-// Symmetry corresponding to the number of reflections. Change the number for different number of reflections
-let symmetry = 6;
+// Symmetry corresponding to the number of reflections. Change the number for different number of reflections 
+let symmetry = 6;   
 
 let angle = 360 / symmetry;
 let saveButton, clearButton, mouseButton, keyboardButton;
 let slider;
 
-function setup() {
+function setup() { 
   createCanvas(710, 710);
   angleMode(DEGREES);
   background(127);
@@ -51,7 +51,7 @@ function draw() {
     let my = mouseY - height / 2;
     let pmx = pmouseX - width / 2;
     let pmy = pmouseY - height / 2;
-
+    
     if (mouseIsPressed) {
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);

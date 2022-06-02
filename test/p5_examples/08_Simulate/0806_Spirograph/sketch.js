@@ -16,7 +16,7 @@ function setup() {
   rad = height / 4; // compute radius for central circle
   background(204); // clear the screen
 
-  for (let i = 0; i < sines.length; i++) {
+  for (let i = 0; i<sines.length; i++) {
     sines[i] = PI; // start EVERYBODY facing NORTH
   }
 }
@@ -49,14 +49,15 @@ function draw() {
     if (trace) ellipse(0, 0, erad, erad); // draw with erad if tracing
     pop(); // go down one level
     translate(0, radius); // move into position for next sine
-    sines[i] = (sines[i] + (fund + fund * i * ratio)) % TWO_PI; // update angle based on fundamental
+    sines[i] = (sines[i] + (fund + (fund * i * ratio))) % TWO_PI; // update angle based on fundamental
   }
 
   pop(); // pop down final transformation
+
 }
 
 function keyReleased() {
-  if (key == ' ') {
+  if (key==' ') {
     trace = !trace;
     background(255);
   }

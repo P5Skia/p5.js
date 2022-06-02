@@ -16,7 +16,7 @@ function draw() {
     fill(255);
     textAlign(CENTER);
     textSize(32);
-    text('click mouse to add particle systems', width / 2, height / 2);
+    text("click mouse to add particle systems", width / 2, height / 2);
   }
 }
 
@@ -39,14 +39,14 @@ Particle.prototype.run = function() {
 };
 
 // Method to update position
-Particle.prototype.update = function() {
+Particle.prototype.update = function(){
   this.velocity.add(this.acceleration);
   this.position.add(this.velocity);
   this.lifespan -= 2;
 };
 
 // Method to display
-Particle.prototype.display = function() {
+Particle.prototype.display = function () {
   stroke(200, this.lifespan);
   strokeWeight(2);
   fill(127, this.lifespan);
@@ -54,7 +54,7 @@ Particle.prototype.display = function() {
 };
 
 // Is the particle still useful?
-Particle.prototype.isDead = function() {
+Particle.prototype.isDead = function () {
   if (this.lifespan < 0) {
     return true;
   } else {
@@ -62,22 +62,23 @@ Particle.prototype.isDead = function() {
   }
 };
 
-let ParticleSystem = function(position) {
+let ParticleSystem = function (position) {
   this.origin = position.copy();
   this.particles = [];
 };
 
-ParticleSystem.prototype.addParticle = function() {
+ParticleSystem.prototype.addParticle = function () {
   // Add either a Particle or CrazyParticle to the system
   if (int(random(0, 2)) == 0) {
     p = new Particle(this.origin);
-  } else {
+  }
+  else {
     p = new CrazyParticle(this.origin);
   }
   this.particles.push(p);
 };
 
-ParticleSystem.prototype.run = function() {
+ParticleSystem.prototype.run = function () {
   for (let i = this.particles.length - 1; i >= 0; i--) {
     let p = this.particles[i];
     p.run();
@@ -96,7 +97,7 @@ function CrazyParticle(origin) {
 
   // Initialize our added properties
   this.theta = 0.0;
-}
+};
 
 // Create a Crazy.prototype object that inherits from Particle.prototype.
 // Note: A common error here is to use "new Particle()" to create the
@@ -112,14 +113,14 @@ CrazyParticle.prototype.constructor = CrazyParticle;
 // Notice we don't have the method run() here; it is inherited from Particle
 
 // This update() method overrides the parent class update() method
-CrazyParticle.prototype.update = function() {
+CrazyParticle.prototype.update=function() {
   Particle.prototype.update.call(this);
   // Increment rotation based on horizontal velocity
   this.theta += (this.velocity.x * this.velocity.mag()) / 10.0;
-};
+}
 
 // This display() method overrides the parent class display() method
-CrazyParticle.prototype.display = function() {
+CrazyParticle.prototype.display=function() {
   // Render the ellipse just like in a regular particle
   Particle.prototype.display.call(this);
   // Then add a rotating line
@@ -129,4 +130,4 @@ CrazyParticle.prototype.display = function() {
   stroke(255, this.lifespan);
   line(0, 0, 25, 0);
   pop();
-};
+}

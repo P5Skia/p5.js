@@ -1,94 +1,70 @@
-let er1, er2;
+class Car {
+  /* Constructor expects parameters for
+  fill color, x and y coordinates that
+  will be used to initialize class properties.
+  */
+  constructor(cColor, x, y) {
+    this.color = cColor;
+    this.doors = 4;
+    this.isConvertible = false;
+    this.x = x;
+    this.y = y;
+    this.speed = 0;
+  }
+
+  start(speed) { // method expects parameter!
+    this.speed = speed;
+  }
+
+  display() { // method!
+    fill(this.color);
+    rect(this.x, this.y, 20, 10);
+  }
+
+  move() { // method!
+    this.x += this.speed;
+    // Wrap x around boundaries
+    if (this.x < -20) {
+      this.x = width;
+    } else if (this.x > width) {
+      this.x = -20;
+    }
+  }
+} //end class Car
+
+let rav4;
+let charger;
+let nova;
 
 function setup() {
-  createCanvas(640, 360);
-  er1 = new EggRing(width * 0.45, height * 0.5, 0.1, 120);
-  er2 = new EggRing(width * 0.65, height * 0.8, 0.05, 180);
+  createCanvas(200, 400);
+  /* Construct the 3 Cars */
+  //constructor expects cColor, x, y
+  rav4 = new Car("silver", 100, 300);
+  charger = new Car("gold", 0, 200);  
+  nova = new Car("blue", 200, 100); 
+  nova.doors = 2; //update nova's doors property
+  
+  console.log("rav4", rav4);
+  console.log("charger", charger);
+  console.log("nova", nova);
+  
+  //call start methods of Car instances
+  //the start method expects a number for speed
+  rav4.start(2.3);
+  charger.start(-4);
+  nova.start(random(-1, 1));
 }
 
 function draw() {
-  background(0);
-  er1.transmit();
-  er2.transmit();
-}
-
-class Egg {
-  constructor(xpos, ypos, t, s) {
-    this.x = xpos;
-    this.y = ypos;
-    this.tilt = t;
-    this.scalar = s / 100.0;
-    this.angle = 0.0;
-  }
-
-  wobble() {
-    this.tilt = cos(this.angle) / 8;
-    this.angle += 0.1;
-  }
-
-  display() {
-    noStroke();
-    fill(255);
-    push();
-    translate(this.x, this.y);
-    rotate(this.tilt);
-    scale(this.scalar);
-    beginShape();
-    vertex(0, -100);
-    bezierVertex(25, -100, 40, -65, 40, -40);
-    bezierVertex(40, -15, 25, 0, 0, 0);
-    bezierVertex(-25, 0, -40, -15, -40, -40);
-    bezierVertex(-40, -65, -25, -100, 0, -100);
-    endShape();
-    pop();
-  }
-}
-
-class Ring {
-  start(xpos, ypos) {
-    this.x = xpos;
-    this.y = ypos;
-    this.on = true;
-    this.diameter = 1;
-  }
-
-  grow() {
-    if (this.on == true) {
-      this.diameter += 0.5;
-      if (this.diameter > width * 2) {
-        this.diameter = 0.0;
-      }
-    }
-  }
-
-  display() {
-    if (this.on == true) {
-      noFill();
-      strokeWeight(4);
-      stroke(155, 153);
-      ellipse(this.x, this.y, this.diameter, this.diameter);
-    }
-  }
-}
-
-class EggRing {
-  constructor(x, y, t, sp) {
-    this.x = x;
-    this.y = y;
-    this.t = t;
-    this.sp = sp;
-    this.circle = new Ring();
-    this.ovoid = new Egg(this.x, this.y, this.t, this.sp);
-    this.circle.start(this.x, this.y - this.sp / 2);
-  }
-
-  transmit() {
-    this.ovoid.wobble();
-    this.ovoid.display();
-    this.circle.grow();
-    this.circle.display();
-    if (circle.on == false) {
-      circle.on = true;
-    }
-  }
+  background("beige");
+  
+  //display and move all 3 Cars
+  rav4.display();
+  charger.display();
+  nova.display();
+  
+  rav4.move();
+  charger.move();
+  nova.move();
 }

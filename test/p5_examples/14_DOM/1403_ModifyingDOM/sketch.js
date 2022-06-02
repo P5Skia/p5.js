@@ -23,9 +23,7 @@ function setup() {
   createP(
     'I learn in this Letter, that Don Peter of Aragon, ' +
       ' comes this night to Messina'
-  )
-    .addClass('text')
-    .hide();
+  ).addClass('text').hide();
 
   // This line grabs the paragraph just created, but it would
   // also grab any other elements with class 'text' in the HTML

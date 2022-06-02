@@ -25,7 +25,7 @@ Particle.prototype.run = function() {
 };
 
 // Method to update position
-Particle.prototype.update = function() {
+Particle.prototype.update = function(){
   this.velocity.add(this.acceleration);
   this.position.add(this.velocity);
   this.lifespan -= 2;
@@ -40,7 +40,7 @@ Particle.prototype.display = function() {
 };
 
 // Is the particle still useful?
-Particle.prototype.isDead = function() {
+Particle.prototype.isDead = function(){
   return this.lifespan < 0;
 };
 
@@ -54,7 +54,7 @@ ParticleSystem.prototype.addParticle = function() {
 };
 
 ParticleSystem.prototype.run = function() {
-  for (let i = this.particles.length - 1; i >= 0; i--) {
+  for (let i = this.particles.length-1; i >= 0; i--) {
     let p = this.particles[i];
     p.run();
     if (p.isDead()) {

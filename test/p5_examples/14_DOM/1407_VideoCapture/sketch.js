@@ -1,8 +1,7 @@
 let capture;
 
 function setup() {
-  console.log('hello');
-  createCanvas(320, 240);
+  createCanvas(390, 240);
   capture = createCapture(VIDEO);
   capture.size(320, 240);
   //capture.hide();

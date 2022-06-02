@@ -1,3 +1,4 @@
+
 let bug; // Declare object
 
 function setup() {

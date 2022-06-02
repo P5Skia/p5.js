@@ -1,3 +1,4 @@
+
 let bugs = []; // array of Jitter objects
 
 function setup() {

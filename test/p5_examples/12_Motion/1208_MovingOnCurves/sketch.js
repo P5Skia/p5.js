@@ -1,3 +1,4 @@
+
 let beginX = 20.0; // Initial x-coordinate
 let beginY = 10.0; // Initial y-coordinate
 let endX = 570.0; // Final x-coordinate

@@ -1,4 +1,3 @@
-let img = null;
 
 function setup() {
   // create canvas
@@ -14,17 +13,14 @@ function draw() {
   textSize(24);
   textAlign(CENTER);
   text('Drag an image file onto the canvas.', width / 2, height / 2);
-  //noLoop();
-  if (img) {
-    image(img, 0, 0, width, height);
-  }
+  noLoop();
 }
 
 function gotFile(file) {
   // If it's an image file
   if (file.type === 'image') {
     // Create an image DOM element but don't show it
-    img = createImg(file.data, 'image').hide();
+    const img = createImg(file.data).hide();
     // Draw the image onto the canvas
     image(img, 0, 0, width, height);
   } else {

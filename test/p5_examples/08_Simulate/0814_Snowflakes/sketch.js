@@ -1,3 +1,4 @@
+
 let snowflakes = []; // array to hold snowflake objects
 
 function setup() {

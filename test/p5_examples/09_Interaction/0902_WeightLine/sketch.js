@@ -1,6 +1,8 @@
+
+
 function setup() {
   createCanvas(400, 400);
-  background('beige');
+  background("beige");
   colorMode(HSB);
 }
 
@@ -13,7 +15,7 @@ function draw() {
 //listen when we click the mouse
 function mouseClicked() {
   //weights 0 to 1
-  stroke('slateBlue');
+  stroke("slateBlue");
   strokeWeight(random());
 
   //what if want weights 0 to .4?
@@ -31,6 +33,6 @@ function keyReleased() {
 //listen for only character keys
 function keyTyped() {
   //weights 0 to 5
-  stroke('turquoise');
+  stroke("turquoise");
   strokeWeight(random(5));
 }

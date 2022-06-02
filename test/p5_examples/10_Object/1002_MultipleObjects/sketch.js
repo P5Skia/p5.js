@@ -1,3 +1,4 @@
+
 let bug1; // Declare objects
 let bug2;
 let bug3;

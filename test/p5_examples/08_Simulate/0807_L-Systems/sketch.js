@@ -20,7 +20,7 @@ function setup() {
 
   // start the x and y position at lower-left corner
   x = 0;
-  y = height - 1;
+  y = height-1;
 
   // COMPUTE THE L-SYSTEM
   for (let i = 0; i < numloops; i++) {
@@ -29,13 +29,15 @@ function setup() {
 }
 
 function draw() {
+
   // draw the current character in the string:
   drawIt(thestring[whereinstring]);
 
   // increment the point for where we're reading the string.
   // wrap around at the end.
   whereinstring++;
-  if (whereinstring > thestring.length - 1) whereinstring = 0;
+  if (whereinstring > thestring.length-1) whereinstring = 0;
+
 }
 
 // interpret an L-system
@@ -46,14 +48,14 @@ function lindenmayer(s) {
   for (let i = 0; i < s.length; i++) {
     let ismatch = 0; // by default, no match
     for (let j = 0; j < therules.length; j++) {
-      if (s[i] == therules[j][0]) {
+      if (s[i] == therules[j][0])  {
         outputstring += therules[j][1]; // write substitution
         ismatch = 1; // we have a match, so don't copy over symbol
         break; // get outta this for() loop
       }
     }
     // if nothing matches, just copy the symbol over.
-    if (ismatch == 0) outputstring += s[i];
+    if (ismatch == 0) outputstring+= s[i];
   }
 
   return outputstring; // send out the modified string
@@ -61,11 +63,11 @@ function lindenmayer(s) {
 
 // this is a custom function that draws turtle commands
 function drawIt(k) {
-  if (k == 'F') {
-    // draw forward
+
+  if (k=='F') { // draw forward
     // polar to cartesian based on step and currentangle:
-    let x1 = x + step * cos(radians(currentangle));
-    let y1 = y + step * sin(radians(currentangle));
+    let x1 = x + step*cos(radians(currentangle));
+    let y1 = y + step*sin(radians(currentangle));
     line(x, y, x1, y1); // connect the old and the new
 
     // update the turtle's position:

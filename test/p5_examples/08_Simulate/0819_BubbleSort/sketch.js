@@ -1,3 +1,4 @@
+
 let values = [];
 let i = 0;
 let j = 0;
@@ -7,7 +8,7 @@ let j = 0;
 // The array is filled with random values in setup() function.
 function setup() {
   createCanvas(720, 400);
-  for (let i = 0; i < width / 8; i++) {
+  for(let i = 0;i<width/8;i++){
     values.push(random(height));
   }
 }
@@ -23,23 +24,24 @@ function draw() {
 }
 
 // The bubbleSort() function sorts taking 8 elements of the array
-// per frame. The algorithm behind this function is
+// per frame. The algorithm behind this function is 
 // bubble sort.
 function bubbleSort() {
-  for (let k = 0; k < 8; k++) {
-    if (i < values.length) {
+  for(let k = 0;k<8;k++){
+    if(i<values.length){
       let temp = values[j];
-      if (values[j] > values[j + 1]) {
-        values[j] = values[j + 1];
-        values[j + 1] = temp;
+      if(values[j] > values[j+1]){
+        values[j] = values[j+1];
+        values[j+1] = temp;
       }
       j++;
-
-      if (j >= values.length - i - 1) {
+      
+      if(j>=values.length-i-1){
         j = 0;
         i++;
       }
-    } else {
+    }
+    else{
       noLoop();
     }
   }
@@ -49,10 +51,10 @@ function bubbleSort() {
 // the whole bubble sort algorithm
 // by drawing the rectangles using values
 // in the array as the length of the rectangle.
-function simulateSorting() {
-  for (let i = 0; i < values.length; i++) {
+function simulateSorting(){
+  for(let i = 0;i<values.length;i++){
     stroke(100, 143, 143);
-    fill(50);
-    rect(i * 8, height, 8, -values[i], 20);
-  }
+     fill(50);
+     rect(i*8 , height, 8, -values[i],20);
+   }
 }

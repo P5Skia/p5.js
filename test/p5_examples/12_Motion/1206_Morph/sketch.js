@@ -1,3 +1,4 @@
+
 // Two ArrayLists to store the vertices for two shapes
 // This example assumes that each shape will have the same
 // number of vertices, i.e. the size of each ArrayList will be the same
