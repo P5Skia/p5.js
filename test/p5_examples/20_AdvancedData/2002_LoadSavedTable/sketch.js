@@ -1,3 +1,4 @@
+
 // Bubble class
 class Bubble {
   constructor(x, y, diameter, name) {
@@ -32,13 +33,10 @@ class Bubble {
 
 let table; // Global object to hold results from the loadTable call
 let bubbles = []; // Global array to hold all bubble objects
-let font,
-  fontsize = 16;
 
 // Put any asynchronous data loading in preload to complete before "setup" is run
 function preload() {
-  table = loadTable('assets/bubbles.csv', 'header');
-  font = loadFont('assets/SourceSansPro-Regular.otf');
+  table = loadTable("assets/bubbles.csv", "header");
 }
 
 // Convert saved Bubble data into Bubble Objects
@@ -49,10 +47,10 @@ function loadData() {
 
   for (let i = 0; i < length; i++) {
     // Get position, diameter, name,
-    const x = bubbleData[i].getNum('x');
-    const y = bubbleData[i].getNum('y');
-    const diameter = bubbleData[i].getNum('diameter');
-    const name = bubbleData[i].getString('name');
+    const x = bubbleData[i].getNum("x");
+    const y = bubbleData[i].getNum("y");
+    const diameter = bubbleData[i].getNum("diameter");
+    const name = bubbleData[i].getString("name");
 
     // Put object in array
     bubbles.push(new Bubble(x, y, diameter, name));
@@ -64,14 +62,14 @@ function mousePressed() {
   // Create a new row
   let row = table.addRow();
 
-  let name = 'New Bubble';
+  let name = "New Bubble";
   let diameter = random(40, 80);
 
   // Set the values of that row
-  row.setNum('x', mouseX);
-  row.setNum('y', mouseY);
-  row.setNum('diameter', diameter);
-  row.setString('name', name);
+  row.setNum("x", mouseX);
+  row.setNum("y", mouseY);
+  row.setNum("diameter", diameter);
+  row.setString("name", name);
 
   bubbles.push(new Bubble(mouseX, mouseY, diameter, name));
 
@@ -85,8 +83,6 @@ function mousePressed() {
 
 function setup() {
   createCanvas(640, 360);
-  textFont(font);
-  textSize(fontsize);
   loadData();
 }
 
@@ -102,5 +98,5 @@ function draw() {
   // Label directions at bottom
   textAlign(LEFT);
   fill(0);
-  text('Click to add bubbles.', 10, height - 10);
+  text("Click to add bubbles.", 10, height - 10);
 }

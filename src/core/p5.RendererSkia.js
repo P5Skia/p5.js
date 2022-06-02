@@ -146,6 +146,7 @@ p5.RendererSkia.prototype.preSK = function() {
     if (this._doRetain && this._retainImage) {
       this._skCanvas.drawImage(this._retainImage, 0, 0, null);
     }
+    this.resetMatrix();
   }
 };
 
@@ -822,7 +823,6 @@ p5.RendererSkia.prototype.image = function(
 
   if (this._tint) {
     // _tint stored as array (Levels)
-    const colorRGB = this.LevelsToSkColor(this._tint, true);
     const color = this.LevelsToSkColor(this._tint, false);
 
     const colf = CanvasKit.ColorFilter.MakeBlend(

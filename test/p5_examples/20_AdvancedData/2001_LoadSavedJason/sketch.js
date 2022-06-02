@@ -1,3 +1,4 @@
+
 // Bubble class
 class Bubble {
   constructor(x, y, diameter, name) {
@@ -32,13 +33,10 @@ class Bubble {
 
 let data = {}; // Global object to hold results from the loadJSON call
 let bubbles = []; // Global array to hold all bubble objects
-let font,
-  fontsize = 16;
 
 // Put any asynchronous data loading in preload to complete before "setup" is run
 function preload() {
   data = loadJSON('assets/bubbles.json');
-  font = loadFont('assets/SourceSansPro-Regular.otf');
 }
 
 // Convert saved Bubble data into Bubble Objects
@@ -79,8 +77,6 @@ function mousePressed() {
 
 function setup() {
   createCanvas(640, 360);
-  textFont(font);
-  textSize(fontsize);
   loadData();
 }
 

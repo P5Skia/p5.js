@@ -1,31 +1,32 @@
-// this variable will hold our shader object
-let theShader;
-// this variable will hold our webcam video
-let cam;
 
-function preload() {
-  // load the shader
-  theShader = loadShader('assets/webcam.vert', 'assets/webcam.frag');
-}
+ // this variable will hold our shader object
+ let theShader;
+ // this variable will hold our webcam video
+ let cam;
 
-function setup() {
-  // shaders require WEBGL mode to work
-  createCanvas(710, 400, WEBGL);
-  noStroke();
+ function preload(){
+   // load the shader
+   theShader = loadShader('assets/webcam.vert', 'assets/webcam.frag');
+ }
 
-  cam = createCapture(VIDEO);
-  cam.size(710, 400);
+ function setup() {
+   // shaders require WEBGL mode to work
+   createCanvas(710, 400, WEBGL);
+   noStroke();
 
-  cam.hide();
-}
+   cam = createCapture(VIDEO);
+   cam.size(710, 400);
 
-function draw() {
-  // shader() sets the active shader with our shader
-  shader(theShader);
+   cam.hide();
+ }
 
-  // passing cam as a texture
-  theShader.setUniform('tex0', cam);
+ function draw() {
+   // shader() sets the active shader with our shader
+   shader(theShader);
 
-  // rect gives us some geometry on the screen
-  rect(0, 0, width, height);
-}
+   // passing cam as a texture
+   theShader.setUniform('tex0', cam);
+
+   // rect gives us some geometry on the screen
+   rect(0,0,width,height);
+ }
