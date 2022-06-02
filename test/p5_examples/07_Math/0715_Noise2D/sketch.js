@@ -1,3 +1,4 @@
+
 let noiseVal;
 let noiseScale = 0.02;
 

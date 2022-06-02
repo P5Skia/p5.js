@@ -1,3 +1,4 @@
+
 let xspacing = 16; // Distance between each horizontal location
 let w; // Width of entire wave
 let theta = 0.0; // Start angle at 0

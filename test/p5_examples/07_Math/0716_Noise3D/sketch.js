@@ -1,3 +1,4 @@
+
 let noiseVal;
 //Increment x by 0.01
 let x_increment = 0.01;
