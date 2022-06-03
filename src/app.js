@@ -103,8 +103,8 @@ import './paragraph/paragraph';
 import './paragraph/p5.Paragraph';
 
 // shader (P5Skia)
-//import './shader/shader';
-//import './shader/p5.Shader';
+import './shader/shader';
+import './shader/p5.Shader';
 
 // webgl
 import './webgl/3d_primitives';

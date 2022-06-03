@@ -11,17 +11,17 @@
  */
 import p5 from '../core/main';
 
-p5.prototype.createShader = function(str, fonts, fontSize, width, maxLine) {
+p5.prototype.createSkiaShader = function(str, fonts, fontSize, width, maxLine) {
   const pShader = new p5.SkiaShader();
 
   return pShader;
 };
 
-p5.prototype.setShader = function(shader) {
+p5.prototype.setSkiaShader = function(shader) {
   this._renderer._setShader(shader);
 };
 
-p5.prototype.noShader = function() {
+p5.prototype.noSkiaShader = function() {
   this._renderer._setShader(null);
 };
 

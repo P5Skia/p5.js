@@ -10,7 +10,7 @@ let input, button;
 function preload() {
   // Ensure the .ttf or .otf font stored in the assets directory
   // is loaded before setup() and draw() are called
-  font = loadFont('/assets/Kanit-Regular.ttf');
+  font = loadFont('assets/Kanit-Regular.ttf');
 }
 
 function setText() {

@@ -13,8 +13,7 @@
 
 import p5 from '../core/main';
 
-p5.SkiaShader = function() {
-};
+p5.SkiaShader = function() {};
 
 p5.SkiaShader.prototype.MakeRadialGradient = function(
   center,
@@ -38,7 +37,7 @@ p5.SkiaShader.prototype.MakeRuntimeEffect = function(sksl) {
 };
 
 p5.SkiaShader.prototype.MakeRuntimeShader = function(floats) {
-  this.skShader = this.effect.makeShader(floats, true);
+  this.skShader = this.effect.makeShader(floats);
 };
 
 export default p5.SkiaShader;
