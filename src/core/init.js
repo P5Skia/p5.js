@@ -55,11 +55,17 @@ const waitingForTranslator =
   typeof IS_MINIFIED === 'undefined' ? initTranslator() : Promise.resolve();
 
 // P5Skia: Initialize CanvasKit
-console.log('P5Skia version 0.71');
-console.log('CanvasKit loading...'); //, window.location);
-window.ckLoaded = CanvasKitInit({
-  locateFile: file => '/bin/' + file
-});
+console.log('P5Skia version 0.73');
+console.log('CanvasKit loading...', window.location);
+if (window.location.origin.startsWith('https://p5code.jb1.io')) {
+  window.ckLoaded = CanvasKitInit({
+    locateFile: file => 'https://p5code.jb1.io/p5skia/0.73/' + file
+  });
+} else {
+  window.ckLoaded = CanvasKitInit({
+    locateFile: file => '/bin/' + file
+  });
+}
 
 window.ckLoaded.then(CK => {
   window.CanvasKit = CK;
