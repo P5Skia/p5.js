@@ -16,7 +16,8 @@
     "contributors:generate": "all-contributors generate",
     "generate": "all-contributors generate",
     "release": "grunt release-p5",
-    "prepublishOnly": "grunt prerelease"
+    "prepublishOnly": "grunt prerelease",
+    "copy": "rm release/*.js && grunt copy && mv release/p5.js release/p5skia.js && mv release/p5.min.js release/p5skia.min.js"
   },
   "lint-staged": {
     "ignore": [
