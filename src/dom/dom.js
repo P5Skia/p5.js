@@ -2203,9 +2203,9 @@ p5.Element.prototype.size = function(w, h) {
     const AUTO = p5.prototype.AUTO;
     if (aW !== AUTO || aH !== AUTO) {
       if (aW === AUTO) {
-        aW = (h * this.width) / this.height;
+        aW = h * this.width / this.height;
       } else if (aH === AUTO) {
-        aH = (w * this.height) / this.width;
+        aH = w * this.height / this.width;
       }
       // set diff for cnv vs normal div
       if (this.elt instanceof HTMLCanvasElement) {
