@@ -61,20 +61,20 @@ function keyPressed() {
   if (key == 's' || key == 'S') saveCanvas(gd.timestamp(), 'png');
 
   switch (key) {
-  case '1':
-    segmentCount = 360;
-    break;
-  case '2':
-    segmentCount = 45;
-    break;
-  case '3':
-    segmentCount = 24;
-    break;
-  case '4':
-    segmentCount = 12;
-    break;
-  case '5':
-    segmentCount = 6;
-    break;
+    case '1':
+      segmentCount = 360;
+      break;
+    case '2':
+      segmentCount = 45;
+      break;
+    case '3':
+      segmentCount = 24;
+      break;
+    case '4':
+      segmentCount = 12;
+      break;
+    case '5':
+      segmentCount = 6;
+      break;
   }
 }
