@@ -144,6 +144,7 @@ p5.RendererSkia.prototype.postDraw = function() {
 p5.RendererSkia.prototype.preSK = function() {
   if (!this._inLoopCount) {
     if (this._doRetain && this._retainImage) {
+      this._skCanvas.restoreToCount(0);
       this._skCanvas.drawImage(this._retainImage, 0, 0, null);
     }
     this.resetMatrix();

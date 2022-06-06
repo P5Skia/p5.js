@@ -291,6 +291,7 @@ p5.prototype._copyHelper = (
     );
   } else if (dstImage._renderer && dstImage._renderer.isSKIA) {
     // P5-Skia:
+    console.log( 'p5skia', sx + sxMod, sy + syMod, sw, sh, dx, dy, dw, dh );
     p5.RendererSkia.prototype.image.call(
       dstImage._renderer,
       srcImage,
@@ -298,10 +299,10 @@ p5.prototype._copyHelper = (
       sy + syMod,
       sw,
       sh,
-      dx * dstImage._renderer._pInst._pixelDensity,
-      dy * dstImage._renderer._pInst._pixelDensity,
-      dw * dstImage._renderer._pInst._pixelDensity,
-      dh * dstImage._renderer._pInst._pixelDensity
+      dx, // * dstImage._renderer._pInst._pixelDensity,
+      dy, // * dstImage._renderer._pInst._pixelDensity,
+      dw, // * dstImage._renderer._pInst._pixelDensity,
+      dh, // * dstImage._renderer._pInst._pixelDensity
     );
   } else {
     dstImage.drawingContext.drawImage(
