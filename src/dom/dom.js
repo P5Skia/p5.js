@@ -424,7 +424,6 @@ p5.prototype.createImg = function() {
     // P5-Skia
     createImageBitmap(elt).then(imgbmp => {
       const skimg = CanvasKit.MakeImageFromCanvasImageSource(imgbmp);
-      console.log('skImg', skimg);
       self.skImg = skimg;
     });
   });
