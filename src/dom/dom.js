@@ -402,6 +402,7 @@ p5.prototype.createSpan = function(html = '') {
  * @return {p5.Element} pointer to <a href="#/p5.Element">p5.Element</a> holding created node
  */
 p5.prototype.createImg = function() {
+  console.log('createImg');
   p5._validateParameters('createImg', arguments);
   const elt = document.createElement('img');
   const args = arguments;
@@ -423,7 +424,7 @@ p5.prototype.createImg = function() {
     // P5-Skia
     createImageBitmap(elt).then(imgbmp => {
       const skimg = CanvasKit.MakeImageFromCanvasImageSource(imgbmp);
-      console.log(skimg);
+      console.log('skImg', skimg);
       self.skImg = skimg;
     });
   });

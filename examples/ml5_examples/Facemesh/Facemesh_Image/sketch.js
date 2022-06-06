@@ -3,12 +3,13 @@ let predictions = [];
 let img;
 
 function setup() {
+  console.log('Setup');
   // Create a canvas that's at least the size of the image.
   createCanvas(270, 340);
 
   // create an image using the p5 dom library
   // call modelReady() when it is loaded
-  img = createImg("data/face.png", imageReady);
+  img = createImg('data/face.png', 'alt', 'anonymous', imageReady);
   // set the image size to the size of the canvas
 
   img.hide(); // hide the image in the browser
@@ -17,16 +18,17 @@ function setup() {
 
 // when the image is ready, then load up facemesh
 function imageReady() {
+  console.log('Image ready!');
   facemesh = ml5.facemesh(modelReady);
 
-  facemesh.on("face", results => {
+  facemesh.on('face', results => {
     predictions = results;
   });
 }
 
 // when facemesh is ready, do the detection
 function modelReady() {
-  console.log("Model ready!");
+  console.log('Model ready!');
   facemesh.predict(img);
 }
 
