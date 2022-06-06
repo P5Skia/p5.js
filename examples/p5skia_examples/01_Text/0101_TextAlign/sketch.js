@@ -5,7 +5,7 @@ let font,
   fontSize = 44;
 let hAlign;
 let vAlign;
-let input, button;
+let textInput, button;
 
 function preload() {
   // Ensure the .ttf or .otf font stored in the assets directory
@@ -14,7 +14,7 @@ function preload() {
 }
 
 function setText() {
-  message = input.value();
+  message = textInput.value();
 }
 
 function setup() {
@@ -42,11 +42,11 @@ function setup() {
   sel2.selected('BASELINE');
   vAlign = BASELINE;  
 
-  input = createInput();
-  input.position(200, 10);
+  textInput = createInput();
+  textInput.position(200, 10);
 
   button = createButton('submit');
-  button.position(input.x + input.width, 10);
+  button.position(textInput.x + textInput.width, 10);
   button.mousePressed(setText);  
 }
 
