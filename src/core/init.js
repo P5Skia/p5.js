@@ -59,7 +59,7 @@ console.log('P5Skia version 0.73');
 console.log('CanvasKit loading...', window.location);
 if (window.location.origin.startsWith('https://p5code.jb1.io')) {
   window.ckLoaded = CanvasKitInit({
-    locateFile: file => 'https://p5code.jb1.io/p5skia/0.73/' + file
+    locateFile: file => 'https://p5code.jb1.io/p5skia/0.74/' + file
   });
 } else {
   window.ckLoaded = CanvasKitInit({

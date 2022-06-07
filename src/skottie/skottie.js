@@ -52,7 +52,9 @@ p5.prototype.loadSkottie = function(
 };
 
 p5.prototype.drawSkottie = function(skottie, x = 0, y = 0) {
-  this._renderer._drawSkottie(skottie, x, y);
+  try {
+    this._renderer._drawSkottie(skottie, x, y);
+  } catch (e) {}
 };
 
 export default p5;
