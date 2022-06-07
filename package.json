@@ -17,8 +17,8 @@
     "generate": "all-contributors generate",
     "release": "grunt release-p5",
     "prepublishOnly": "grunt prerelease",
-    "copy": "rm release/*.js && grunt copy && mv release/p5.js release/p5skia.js && mv release/p5.min.js release/p5skia.min.js",
-    "cdn": "npm run copy && mkdir -p ../p5.js-web-editor/public/p5skia/0.74 && cp release/p5skia*.* ../p5.js-web-editor/public/p5skia/0.74 && cp bin/canvaskit*.* ../p5.js-web-editor/public/p5skia/0.74"
+    "copyskia": "rm release/*.js && grunt copy && mv release/p5.js release/p5skia.js && mv release/p5.min.js release/p5skia.min.js",
+    "cdn": "npm run copyskia && mkdir -p ../p5.js-web-editor/public/p5skia/0.74 && cp release/p5skia*.* ../p5.js-web-editor/public/p5skia/0.74 && cp bin/canvaskit*.* ../p5.js-web-editor/public/p5skia/0.74"
   },
   "lint-staged": {
     "ignore": [
