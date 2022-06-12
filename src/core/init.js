@@ -61,6 +61,11 @@ if (window.location.origin.startsWith('https://p5code.jb1.io')) {
   window.ckLoaded = CanvasKitInit({
     locateFile: file => 'https://p5code.jb1.io/p5skia/0.74/' + file
   });
+} else if (window.location.origin.startsWith('https://wp.jb1.io')) {
+  window.ckLoaded = CanvasKitInit({
+    locateFile: file =>
+      'https://wp.jb1.io/wp-content/themes/hello-panda/libs/' + file
+  });
 } else {
   window.ckLoaded = CanvasKitInit({
     locateFile: file => '/bin/' + file
